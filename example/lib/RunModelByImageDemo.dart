@@ -7,8 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_pytorch/pigeon.dart';
 import 'package:flutter_pytorch/flutter_pytorch.dart';
 
-
 class RunModelByImageDemo extends StatefulWidget {
+  const RunModelByImageDemo({super.key});
+
   @override
   _RunModelByImageDemoState createState() => _RunModelByImageDemoState();
 }
@@ -20,7 +21,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
   String? _imagePrediction;
   List? _prediction;
   File? _image;
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   bool objectDetection = false;
   List<ResultObjectDetection?> objDetect = [];
   @override
@@ -57,7 +58,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     objDetect = await _objectModel
         .getImagePredictionList(await File(image!.path).readAsBytes());
-    objDetect.forEach((element) {
+    for (var element in objDetect) {
       print({
         "score": element?.score,
         "className": element?.className,
@@ -71,7 +72,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
           "bottom": element?.rect.bottom,
         },
       });
-    });
+    }
     setState(() {
       //this.objDetect = objDetect;
       _image = File(image.path);
@@ -85,7 +86,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
         await File(image!.path).readAsBytes(),
         minimumScore: 0.1,
         IOUThershold: 0.3);
-    objDetect.forEach((element) {
+    for (var element in objDetect) {
       print({
         "score": element?.score,
         "className": element?.className,
@@ -99,7 +100,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
           "bottom": element?.rect.bottom,
         },
       });
-    });
+    }
     setState(() {
       //this.objDetect = objDetect;
       _image = File(image.path);
@@ -114,7 +115,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
     //labels are 1000 random english words for show purposes
     print(image!.path);
     _imagePrediction = await _imageModel!
-        .getImagePrediction(await File(image!.path).readAsBytes());
+        .getImagePrediction(await File(image.path).readAsBytes());
 
     List<double?>? predictionList = await _imageModel!.getImagePredictionList(
       await File(image.path).readAsBytes(),
@@ -122,7 +123,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
 
     print(predictionList);
     List<double?>? predictionListProbabilites =
-    await _imageModel!.getImagePredictionListProbabilities(
+        await _imageModel!.getImagePredictionListProbabilities(
       await File(image.path).readAsBytes(),
     );
     //Gettting the highest Probability
@@ -169,11 +170,11 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
             Expanded(
               child: objDetect.isNotEmpty
                   ? _image == null
-                  ? Text('No image selected.')
-                  : _objectModel.renderBoxesOnImage(_image!, objDetect)
+                      ? const Text('No image selected.')
+                      : _objectModel.renderBoxesOnImage(_image!, objDetect)
                   : _image == null
-                  ? Text('No image selected.')
-                  : Image.file(_image!),
+                      ? const Text('No image selected.')
+                      : Image.file(_image!),
             ),
             Center(
               child: Visibility(
@@ -215,7 +216,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
-              child: Text(
+              child: const Text(
                 "Run object detection with labels",
                 style: TextStyle(
                   color: Colors.white,
@@ -227,7 +228,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
-              child: Text(
+              child: const Text(
                 "Run object detection without labels",
                 style: TextStyle(
                   color: Colors.white,

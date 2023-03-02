@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pytorch_example/RunModelByCameraDemo.dart';
 import 'package:flutter_pytorch_example/RunModelByImageDemo.dart';
 
-void main() => runApp(ChooseDemo());
+void main() => runApp(const ChooseDemo());
 
 class ChooseDemo extends StatefulWidget {
   const ChooseDemo({Key? key}) : super(key: key);
@@ -19,52 +19,51 @@ class _ChooseDemoState extends State<ChooseDemo> {
         appBar: AppBar(
           title: const Text('Pytorch Mobile Example'),
         ),
-        body: Builder(
-          builder: (context) {
-            return Center(
-              child: Column(
-                children: [
-                  TextButton(
-                    onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RunModelByCameraDemo()),
-                      )
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Text(
-                      "Run Model with Camera",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+        body: Builder(builder: (context) {
+          return Center(
+            child: Column(
+              children: [
+                TextButton(
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RunModelByCameraDemo()),
+                    )
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    "Run Model with Camera",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RunModelByImageDemo()),
-                      )
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                ),
+                TextButton(
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RunModelByImageDemo()),
+                    )
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    "Run Model with Image",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    child: Text(
-                      "Run Model with Image",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-        ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
 }
-
