@@ -13,7 +13,8 @@ class PyTorchRect {
   double bottom;
   double width;
   double height;
-  PyTorchRect(this.left, this.top, this.width, this.height, this.right, this.bottom);
+  PyTorchRect(
+      this.left, this.top, this.width, this.height, this.right, this.bottom);
 }
 
 class ResultObjectDetection {
@@ -59,6 +60,6 @@ abstract class ModelApi {
       int? imageWidthForBytesList,
       int? imageHeightForBytesList,
       double minimumScore,
-      double IOUThreshold,
+      double iOUThreshold,
       int boxesLimit);
 }

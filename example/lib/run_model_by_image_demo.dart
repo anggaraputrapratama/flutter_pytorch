@@ -11,7 +11,7 @@ class RunModelByImageDemo extends StatefulWidget {
   const RunModelByImageDemo({super.key});
 
   @override
-  _RunModelByImageDemoState createState() => _RunModelByImageDemoState();
+  State<RunModelByImageDemo> createState() => _RunModelByImageDemoState();
 }
 
 class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
@@ -45,9 +45,9 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
           labelPath: "assets/labels/labels_objectDetection_Coco.txt");
     } catch (e) {
       if (e is PlatformException) {
-        print("only supported for android, Error is $e");
+        debugPrint("only supported for android, Error is $e");
       } else {
-        print("Error is $e");
+        debugPrint("Error is $e");
       }
     }
   }
@@ -58,21 +58,6 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     objDetect = await _objectModel
         .getImagePredictionList(await File(image!.path).readAsBytes());
-    for (var element in objDetect) {
-      print({
-        "score": element?.score,
-        "className": element?.className,
-        "class": element?.classIndex,
-        "rect": {
-          "left": element?.rect.left,
-          "top": element?.rect.top,
-          "width": element?.rect.width,
-          "height": element?.rect.height,
-          "right": element?.rect.right,
-          "bottom": element?.rect.bottom,
-        },
-      });
-    }
     setState(() {
       //this.objDetect = objDetect;
       _image = File(image.path);
@@ -85,22 +70,7 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
     objDetect = await _objectModel.getImagePrediction(
         await File(image!.path).readAsBytes(),
         minimumScore: 0.1,
-        IOUThershold: 0.3);
-    for (var element in objDetect) {
-      print({
-        "score": element?.score,
-        "className": element?.className,
-        "class": element?.classIndex,
-        "rect": {
-          "left": element?.rect.left,
-          "top": element?.rect.top,
-          "width": element?.rect.width,
-          "height": element?.rect.height,
-          "right": element?.rect.right,
-          "bottom": element?.rect.bottom,
-        },
-      });
-    }
+        iOUThershold: 0.3);
     setState(() {
       //this.objDetect = objDetect;
       _image = File(image.path);
@@ -113,15 +83,15 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     //get prediction
     //labels are 1000 random english words for show purposes
-    print(image!.path);
+
     _imagePrediction = await _imageModel!
-        .getImagePrediction(await File(image.path).readAsBytes());
+        .getImagePrediction(await File(image!.path).readAsBytes());
 
     List<double?>? predictionList = await _imageModel!.getImagePredictionList(
       await File(image.path).readAsBytes(),
     );
 
-    print(predictionList);
+    // print(predictionList);
     List<double?>? predictionListProbabilites =
         await _imageModel!.getImagePredictionListProbabilities(
       await File(image.path).readAsBytes(),
@@ -137,10 +107,10 @@ class _RunModelByImageDemoState extends State<RunModelByImageDemo> {
         index = i;
       }
     }
-    print(predictionListProbabilites);
-    print(index);
-    print(sumOfProbabilites);
-    print(maxScoreProbability);
+    // print(predictionListProbabilites);
+    // print(index);
+    // print(sumOfProbabilites);
+    // print(maxScoreProbability);
 
     setState(() {
       //this.objDetect = objDetect;

@@ -1,12 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image/image.dart';
 import 'package:flutter_pytorch/pigeon.dart';
 import 'package:flutter_pytorch/flutter_pytorch.dart';
-import 'package:flutter_pytorch_example/utils/image_utils.dart';
 
 import 'camera_view_singleton.dart';
 
@@ -17,9 +13,10 @@ class CameraView extends StatefulWidget {
   final Function(String classification) resultsCallbackClassification;
 
   /// Constructor
-  const CameraView(this.resultsCallback, this.resultsCallbackClassification);
+  const CameraView(this.resultsCallback, this.resultsCallbackClassification,
+      {super.key});
   @override
-  _CameraViewState createState() => _CameraViewState();
+  State<CameraView> createState() => _CameraViewState();
 }
 
 class _CameraViewState extends State<CameraView> with WidgetsBindingObserver {
@@ -57,9 +54,9 @@ class _CameraViewState extends State<CameraView> with WidgetsBindingObserver {
           labelPath: "assets/labels/labels_objectDetection_Coco.txt");
     } catch (e) {
       if (e is PlatformException) {
-        print("only supported for android, Error is $e");
+        debugPrint("only supported for android, Error is $e");
       } else {
-        print("Error is $e");
+        debugPrint("Error is $e");
       }
     }
   }
@@ -138,9 +135,9 @@ class _CameraViewState extends State<CameraView> with WidgetsBindingObserver {
               cameraImage.width,
               cameraImage.height,
               minimumScore: 0.3,
-              IOUThershold: 0.3);
+              iOUThershold: 0.3);
 
-      print("data outputted $objDetect");
+      debugPrint("data outputted $objDetect");
       widget.resultsCallback(objDetect);
     }
     if (_imageModel != null) {
@@ -151,7 +148,7 @@ class _CameraViewState extends State<CameraView> with WidgetsBindingObserver {
         cameraImage.height,
       );
 
-      print("imageClassifaction $imageClassifaction");
+      debugPrint("imageClassifaction $imageClassifaction");
       widget.resultsCallbackClassification(imageClassifaction);
     }
     // set predicting to false to allow new frames

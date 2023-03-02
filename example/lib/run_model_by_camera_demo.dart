@@ -9,7 +9,7 @@ class RunModelByCameraDemo extends StatefulWidget {
   const RunModelByCameraDemo({super.key});
 
   @override
-  _RunModelByCameraDemoState createState() => _RunModelByCameraDemoState();
+  State<RunModelByCameraDemo> createState() => _RunModelByCameraDemoState();
 }
 
 class _RunModelByCameraDemoState extends State<RunModelByCameraDemo> {
@@ -105,18 +105,18 @@ class _RunModelByCameraDemoState extends State<RunModelByCameraDemo> {
   void resultsCallback(List<ResultObjectDetection?> results) {
     setState(() {
       this.results = results;
-      for (var element in results) {
-        print({
-          "rect": {
-            "left": element?.rect.left,
-            "top": element?.rect.top,
-            "width": element?.rect.width,
-            "height": element?.rect.height,
-            "right": element?.rect.right,
-            "bottom": element?.rect.bottom,
-          },
-        });
-      }
+      // for (var element in results) {
+      //   print({
+      //     "rect": {
+      //       "left": element?.rect.left,
+      //       "top": element?.rect.top,
+      //       "width": element?.rect.width,
+      //       "height": element?.rect.height,
+      //       "right": element?.rect.right,
+      //       "bottom": element?.rect.bottom,
+      //     },
+      //   });
+      // }
     });
   }
 
@@ -126,9 +126,9 @@ class _RunModelByCameraDemoState extends State<RunModelByCameraDemo> {
     });
   }
 
-  static const BOTTOM_SHEET_RADIUS = Radius.circular(24.0);
+  static const bottomSheetRadius = Radius.circular(24.0);
   static const BORDER_RADIUS_BOTTOM_SHEET = BorderRadius.only(
-      topLeft: BOTTOM_SHEET_RADIUS, topRight: BOTTOM_SHEET_RADIUS);
+      topLeft: bottomSheetRadius, topRight: bottomSheetRadius);
 }
 
 /// Row for one Stats field

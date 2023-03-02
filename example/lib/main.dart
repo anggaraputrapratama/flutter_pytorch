@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pytorch_example/RunModelByCameraDemo.dart';
 import 'package:flutter_pytorch_example/RunModelByImageDemo.dart';
 
 void main() => runApp(const ChooseDemo());
@@ -28,7 +27,7 @@ class _ChooseDemoState extends State<ChooseDemo> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RunModelByCameraDemo()),
+                          builder: (context) => const RunModelByImageDemo()),
                     )
                   },
                   style: TextButton.styleFrom(
